@@ -1,3 +1,12 @@
 .div-publicar{
     background-color: #4D73BF;
 }
+
+.div-listaPost{
+	text-align: left;
+	border-bottom: 1px solid black;
+}
+
+.cursiva{
+	font-style: italic;
+}

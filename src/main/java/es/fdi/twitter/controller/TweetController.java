@@ -1,6 +1,7 @@
 package es.fdi.twitter.controller;
 
 
+import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +9,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import es.fdi.twitter.entities.Tweet;
 import es.fdi.twitter.service.TweetService;
 
@@ -55,6 +55,7 @@ public class TweetController {
 		if (bindingResult.hasErrors()) {
             return "welcome";
         }
+		t.setFecha(Calendar.getInstance().getTime());
 		this.tweet_service.addTweet(t);
 		model.clear();
 		
