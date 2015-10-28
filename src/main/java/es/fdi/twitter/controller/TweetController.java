@@ -29,19 +29,6 @@ public class TweetController {
         return this.tweet_service.getLista();
     }
     
-    /*
-	@RequestMapping(value="/welcome.htm")
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException{
-        
-		List<Tweet> tweets = this.tweet.getList();
-		
-		Map<String, Object> myModel = new HashMap<String, Object>();
-		myModel.put("tweets", tweets);
-		
-		return new ModelAndView("welcome","model", myModel);
-	}
-	*/
 	
 	
     @RequestMapping({"/","/welcome"})

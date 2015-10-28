@@ -1,18 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
 	<title>Registro</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/estilo.css" th:href="@{/css/estilo.css}"/>
 </head>
 <body>
 	<h2>Datos del nuevo usuario</h2>
-	<form id="formRegistro" action="" method="POST">
-		<fieldset>
-			<legend>Datos de usuario</legend>
-			Nombre de usuario: <input name="username" type="text"><br><br>
-		    Password:<input name="pass" type="password"><br><br>
-			Email: <input name="email" type="text"><br><br>
-			<input type="Submit" value="Registrarme">
-		</fieldset>
+	 <div th:if="${param.error}" class="alert alert-danger">    
+                    Username o password incorrectos!!
+     </div>
+     <div th:if="${param.exito}" class="alert alert-success">    
+                    Registrado con exito!!
+     </div>
+	<form action="#" th:action="@{/registro}" method="post">
+			Nombre de usuario: <input name="username" type="text" /><br/><br/>
+		    Password:<input name="password" type="password" /><br/><br/>
+			Email: <input name="correo" type="text" /><br/><br/>
+			<button class="btn btn-default" type="submit" name="registrar">Registrarme</button>		
 	</form>
+	<br/><br/>
+	<a href="welcome.htm">Ir a la pagina principal</a>
 </body>
 </html>
