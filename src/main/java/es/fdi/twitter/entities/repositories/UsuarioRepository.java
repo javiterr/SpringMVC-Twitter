@@ -33,6 +33,26 @@ public class UsuarioRepository {
 		return user;
 	}
 	
+	
+	public Usuario getUsuarioLogueado(){
+		
+		Usuario user = null;
+		boolean encontrado = false;
+		int i=0;
+		
+		while(!encontrado && (i < lista_users.size()) ){
+			if(lista_users.get(i).isLogueado()){
+				encontrado = true;
+				user = lista_users.get(i);
+			}
+			i++;
+		}
+		
+		
+		return user;
+	}
+	
+	
 	public boolean addUsuario(Usuario u){
 		
 		boolean exito = false;

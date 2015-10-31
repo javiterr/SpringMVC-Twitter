@@ -8,19 +8,17 @@
 </head>
 <body>
 	<h2>Datos del nuevo usuario</h2>
-	 <div th:if="${param.error}" class="alert alert-danger">    
-                    Username o password incorrectos!!
-     </div>
-     <div th:if="${param.exito}" class="alert alert-success">    
-                    Registrado con exito!!
-     </div>
-	<form action="#" th:action="@{/registro}" method="post">
-			Nombre de usuario: <input name="username" type="text" /><br/><br/>
-		    Password:<input name="password" type="password" /><br/><br/>
-			Email: <input name="correo" type="text" /><br/><br/>
-			<button class="btn btn-default" type="submit" name="registrar">Registrarme</button>		
-	</form>
-	<br/><br/>
-	<a href="welcome.htm">Ir a la pagina principal</a>
+	<div class="col-md-6">
+	 <div th:if="${error}" class="alert alert-danger" th:text="${error}">  Username o password incorrectos!! </div>
+     <div th:if="${exito}" class="alert alert-success" th:text="${exito}">    Registrado con exito!!  </div>
+		<form action="#" th:action="@{/registro}" method="post">
+				Nombre de usuario: <input name="username" type="text" /><br/><br/>
+			    Password:<input name="password" type="password" /><br/><br/>
+				Email: <input name="correo" type="text" /><br/><br/>
+				<button class="btn btn-default" type="submit" name="registrar">Registrarme</button>		
+		</form>
+		<br/><br/>
+		<a href="welcome.htm">Ir a la pagina principal</a>
+	</div>
 </body>
 </html>

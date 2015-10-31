@@ -2,12 +2,15 @@ package es.fdi.twitter.entities;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class Tweet {
 
 	private Integer id = null;
 	private String msg = null;;
 	private Date fecha = null;
-	
+	@Autowired
+	private Usuario usuario = null;
 	
 
 	public Tweet(){
@@ -37,11 +40,17 @@ public class Tweet {
 		return fecha;
 	}
 
-
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	
 	
 }

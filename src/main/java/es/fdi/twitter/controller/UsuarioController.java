@@ -1,16 +1,10 @@
 package es.fdi.twitter.controller;
 
-import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import es.fdi.twitter.entities.Tweet;
+import org.springframework.web.servlet.ModelAndView;
 import es.fdi.twitter.entities.Usuario;
 import es.fdi.twitter.service.UsuarioService;
 
@@ -24,10 +18,6 @@ public class UsuarioController {
 		super();
 	}
     
-    @ModelAttribute("user")
-    public Usuario getUsuario(Usuario u){
-    	return user_service.getUsuario(u);
-    }
     
     @RequestMapping(value="/login")
     public String login(){
@@ -35,15 +25,16 @@ public class UsuarioController {
     }
     
     @RequestMapping(value="/login", params={"entrar"})
-	public String loguearse(Usuario u,BindingResult bindingResult, ModelMap model){
-		if (bindingResult.hasErrors()) {
-            return "welcome";
-        }
-		
-		//this.user_service.addUsuario(u);
-		//model.clear();
-		
-		return "redirect:/welcome";
+	public ModelAndView loguearse(Usuario u){
+    	 	
+    	Usuario user = user_service.getUsuario(u);
+    	if(user != null){
+    		user.setLogueado(true);
+    	    return new ModelAndView("welcome","userlogin", user);	
+    	}
+    	else
+    	    return new ModelAndView("login","error", "Usuario o contraseña incorrectos!!");
+   
 	}
     
     @RequestMapping(value="/registro")
@@ -51,22 +42,18 @@ public class UsuarioController {
     	return "registro";
     }
     
+    
     @RequestMapping(value="/registro", params={"registrar"})
-	public String registrarse(Usuario u,BindingResult bindingResult, ModelMap model){
-		if (bindingResult.hasErrors()) {
-            return "welcome";
-        }
-		
-		if(this.user_service.addUsuario(u)){
-			model.clear();
-			return "redirect:/registro.html?exito";
-		}
-		else{
-			return "redirect:/registro?error";
-		}
-		
-		
-		
-	}
+    public ModelAndView registrar(Usuario u){
+    	
+    	ModelAndView model = new ModelAndView("registro");
+    	if(user_service.addUsuario(u))
+    	 model.addObject("exito", "Usuario registrado con éxito");
+    	else
+    	  model.addObject("error", "No se ha podido registrar el usuario");
+    	
+    	return model;
+    	
+    }
     
 }

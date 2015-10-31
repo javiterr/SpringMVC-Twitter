@@ -19,6 +19,10 @@ public class UsuarioService {
 	public Usuario getUsuario(Usuario u){
 		return user_repository.getUsuario(u);
 	}
+	
+	public Usuario getUsuarioLogueado(){
+		return user_repository.getUsuarioLogueado();
+	}
 
 	
 	public boolean addUsuario(Usuario u){

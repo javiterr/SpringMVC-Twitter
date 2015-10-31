@@ -6,7 +6,9 @@ public class Usuario {
 	private String username = null;
 	private String correo = null;
 	private String password = null;
+	private boolean logueado = false;
 	
+
 	public Usuario(){
 		super();
 	}
@@ -42,5 +44,14 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public boolean isLogueado() {
+		return logueado;
+	}
+
+	public void setLogueado(boolean logueado) {
+		this.logueado = logueado;
+	}
+	
 	
 }

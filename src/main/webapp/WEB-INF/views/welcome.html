@@ -9,16 +9,17 @@
 <body>
 <div class="container text-center">
 	<h2>Bienvenido a TwitterUCM!</h2>
-	<div class="div-publicar col-md-6 col-md-offset-3" th:if="${user} != null">
+	<div class="div-publicar col-md-6 col-md-offset-3" th:if="${userlogin} != null">
+		<p th:text="'Estas registrado como ' + ${userlogin.username} "> </p>
 		<h3> Publicar nuevo post</h3>
-		<form action="#" th:action="@{/welcome}" th:object="${tweet}" method="post">
+		<form action="#" th:action="@{/welcome}" th:object="${userlogin}" method="post">
 			<textarea name="msg" class="form-control" rows="3" placeholder="Escribe aqui.."></textarea><br/>
 			<button class="btn btn-default" type="submit" name="publicar">publicar</button>
 			<br/><br/>
 		</form>
 	</div>
 	
-	<div th:if="${user} == null"> 
+	<div th:if="${userlogin} == null"> 
 	No estas registrado. Puedes hacer <a href="login.htm">login</a> o <a href="registro.htm">registrarte</a>
 	</div>
 	
@@ -26,7 +27,7 @@
 	    <h3>Lista de post recientes</h3>
 		<div class="div-listaPost" th:each="t : ${allTweets}"> 
 		  <p th:text="${t.msg}"></p>
-		  <p class="cursiva" th:text="'Publicado por X el ' + ${t.fecha}"></p>
+		  <p class="cursiva" th:text="'Publicado por ' + ${t.usuario} + ' el ' + ${t.fecha}"></p>
 		</div>     
 	</div>
 </div>
