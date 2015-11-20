@@ -1,21 +1,27 @@
 package es.fdi.twitter.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import es.fdi.twitter.entities.Usuario;
+import es.fdi.twitter.service.TweetService;
 import es.fdi.twitter.service.UsuarioService;
+
 
 @Controller
 public class UsuarioController {
 
-	@Autowired
-	private UsuarioService user_service;
+	private TweetService tweet_service;
 	
-    public UsuarioController() {
-		super();
+	private UsuarioService user_service;
+		
+	
+	@Autowired
+    public UsuarioController(TweetService ts, UsuarioService us ) {
+		tweet_service = ts;
+    	user_service = us;
 	}
     
     
@@ -24,13 +30,17 @@ public class UsuarioController {
     	return "login";
     }
     
-    @RequestMapping(value="/login", params={"entrar"})
+    
+    @RequestMapping(value="/login", method=RequestMethod.POST)
 	public ModelAndView loguearse(Usuario u){
     	 	
     	Usuario user = user_service.getUsuario(u);
     	if(user != null){
     		user.setLogueado(true);
-    	    return new ModelAndView("welcome","userlogin", user);	
+    		ModelAndView model = new ModelAndView("welcome");
+    		model.addObject("allTweets", tweet_service.getLista());
+    		model.addObject("userlogin", user);
+    	    return model;	
     	}
     	else
     	    return new ModelAndView("login","error", "Usuario o contraseña incorrectos!!");
@@ -43,7 +53,7 @@ public class UsuarioController {
     }
     
     
-    @RequestMapping(value="/registro", params={"registrar"})
+    @RequestMapping(value="/registro",  method=RequestMethod.POST)
     public ModelAndView registrar(Usuario u){
     	
     	ModelAndView model = new ModelAndView("registro");
@@ -54,6 +64,21 @@ public class UsuarioController {
     	
     	return model;
     	
+    }
+    
+    
+    @RequestMapping(value="/logout")
+    public ModelAndView logout(){
+    	
+    	ModelAndView model = new ModelAndView("welcome");
+    	Usuario user = user_service.getUsuarioLogueado();  	
+    	user.setLogueado(false);
+    
+    	model.addObject("allTweets", tweet_service.getLista());
+		model.addObject("userlogin", user);
+		
+	    return model;		
+    		
     }
     
 }

@@ -1,13 +1,11 @@
 package es.fdi.twitter.controller;
 
 
-import java.util.Calendar;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import es.fdi.twitter.entities.Tweet;
 import es.fdi.twitter.entities.Usuario;
 import es.fdi.twitter.service.TweetService;
@@ -17,45 +15,35 @@ import es.fdi.twitter.service.UsuarioService;
 @Controller
 public class TweetController {
 
-	@Autowired
+	
 	private TweetService tweet_service;
 	
-	@Autowired
 	private UsuarioService user_service;
 	
-    public TweetController() {
-		super();
+	@Autowired
+    public TweetController(TweetService ts, UsuarioService us ) {
+    	tweet_service = ts;
+    	user_service = us;
 	}
-	
-    @ModelAttribute("userlogin")
-    public Usuario getUserLog(){
-    	return user_service.getUsuarioLogueado();
-    }
-    
-    @ModelAttribute("allTweets")
-    public List<Tweet> listaDeTweets() {
-        return this.tweet_service.getLista();
-    }
-    
 	
 	
     @RequestMapping({"/","/welcome"})
-    public String showTweets(Tweet t) {
-        return "welcome";
+    public ModelAndView showTweets() {
+        return new ModelAndView("welcome","userlogin",new Usuario());
     }
     
     
-	@RequestMapping(value="/welcome", params={"publicar"})
-	public String publicar(@ModelAttribute("userlogin") Usuario u,Tweet t, BindingResult bindingResult){
-		if (bindingResult.hasErrors()) {
-            return "welcome";
-        }
-		t.setFecha(Calendar.getInstance().getTime());
-		t.setUsuario(u);
-		this.tweet_service.addTweet(t);
+	@RequestMapping(value="/welcome", method=RequestMethod.POST)
+	public ModelAndView publicar(Tweet t){
 		
+		Usuario u = user_service.getUsuarioLogueado();
+		this.tweet_service.addTweet(t, u);
 		
-		return "redirect:/welcome";
+		ModelAndView model = new ModelAndView("welcome");
+		model.addObject("userlogin", u);
+		model.addObject("allTweets", tweet_service.getLista());
+		
+		return model;
 	}
 	
 	

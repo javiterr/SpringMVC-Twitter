@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.fdi.twitter.entities.Tweet;
+import es.fdi.twitter.entities.Usuario;
 import es.fdi.twitter.entities.repositories.TweetRepository;
 
 @Service
@@ -23,8 +24,8 @@ public class TweetService {
 	}
 
 	
-	public void addTweet(Tweet t){
-		tweet_repository.addTweet(t);
+	public void addTweet(Tweet t, Usuario u){
+		tweet_repository.addTweet(t,u);
 	}
 	
 }

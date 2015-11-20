@@ -1,5 +1,5 @@
 .div-publicar{
-    background-color: #4D73BF;
+    background-color: #ECC62F;
 }
 
 .div-listaPost{
@@ -9,4 +9,8 @@
 
 .cursiva{
 	font-style: italic;
+}
+
+a{
+	text-decoration:none;
 }
