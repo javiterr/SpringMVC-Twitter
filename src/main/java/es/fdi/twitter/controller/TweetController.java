@@ -17,6 +17,16 @@ public class TweetController {
 
 	//Javi
 	
+	
+	
+	
+	
+	public void fff(){
+	}
+	
+	
+	
+	
 	private TweetService tweet_service;
 	
 	private UsuarioService user_service;
