@@ -17,7 +17,19 @@ public class TweetController {
 
 	//Javi
 	
+<<<<<<< .merge_file_a00860
 	public void eee{}
+=======
+	
+	
+	
+	
+	public void fff(){
+	}
+	
+	
+	
+>>>>>>> .merge_file_a10968
 	
 	private TweetService tweet_service;
 	
